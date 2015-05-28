@@ -33,6 +33,9 @@ submodule.
 You may, also, just download the makefile from this repo. I recommend cloning
 (or submoduling) this repo, though, so you can get the latest changes.
 
+After you have the Makefile, simply change the "template" variable at the top to
+point to the template .tex file in your project.
+
 ### Contribution Guidelines
 I am always open to comments and suggestions, but I am unlikely to acknowledge
 pull requests for this repository, unless it is a very significant change.

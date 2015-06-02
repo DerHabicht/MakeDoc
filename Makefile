@@ -1,16 +1,27 @@
 # Template file: the LaTeX file that ties everything together
-template = IntroToGit
+TeXtemplate = IntroToGit
 
-# Collect all *.pmd files to be parsed by Pandoc Markdown rules
-chapters = $(basename $(wildcard *.pmd))
+# Collect all files with macros
+macro_text = $(basename $(wildcard *.m4md))
+# Collect all files to be processed directly by pandoc
+pandoc_text = $(basename $(wildcard *.txt))
+
+# Uncomment this to preserve intermediate files for debugging
+#.SECONDARY:
 
 # Main document rule: run two passes for any annotation in the document
-$(template).pdf: $(template).tex $(foreach ch, $(chapters), $(ch).tex)
-	pdflatex $(template).tex
-	pdflatex $(template).tex
+latex: $(TeXtemplate).tex \
+					$(foreach ch, $(macro_text), $(ch).tex) \
+					$(foreach ch, $(pandoc_text), $(ch).tex)
+	pdflatex $(TeXtemplate).tex
+	pdflatex $(TeXtemplate).tex
+
+# Process any files with macros
+%.txt: %.m4md
+	m4 $< > $@
 
 # Generic chapter file rule: parse each *.pmd file into LaTeX format
-%.tex: %.pmd
+%.tex: %.txt
 	pandoc $< -f markdown -t latex -o $@
 
 # Cleanup rules
@@ -20,5 +31,7 @@ clean:
 	rm -f *.log
 	rm -f *.out
 	rm -f *.pdf
-	rm -f $(foreach f, $(chapters), $(f).tex)
+	rm -f $(foreach f, $(macro_text), $(f).txt)
+	rm -f $(foreach f, $(macro_text), $(f).tex)
+	rm -f $(foreach f, $(pandoc_text), $(f).tex)
 	rm -f *.toc

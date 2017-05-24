@@ -25,16 +25,32 @@ First you need to have these programs installed:
  3. GNU M4 (For macro support)
  4. pdflatex (I recommend the TeXLive installation)
 
-It's probably good practice to use Git on any project large enough to warrant
-this makefile, but if you're not using Git on your project, go ahead and clone
-this repository into your project directory. Otherwise, add this repo as a
-submodule.
+There are three options for setting up this makefile.
 
-You may, also, just download the makefile from this repo. I recommend cloning
-(or submoduling) this repo, though, so you can get the latest changes.
+ 1. Download the makefile from the repo into your project directory.
+ 2. Clone this repo into your project directory. If your project is in Git
+ (and, if it's complicated enough that this makefile makes sense, then your
+ project should probably be in Git), add this repo as a submodule. Then symlink
+ the makefile to your main project directory.
+ 3. Clone the repo somewhere centralish on your system and symlink the makefile
+ to any/all projects that might need it.
 
-After you have the Makefile, simply change the "template" variable at the top to
-point to the template .tex file in your project.
+I personally do #3. By default, the makefile is going to look for an
+environment variable called "template." In each of the projects I use this
+makefile in, I will create a .makedoc file that looks something like:
+
+~~~~
+export template=foo
+~~~~
+
+I will then source .makedoc before invoking make in that directory.
+
+This isn't always the best approach and can be problematic in some cases. You
+can always set the template variable At the top of the makefile if you have
+trouble getting the template file name from the environment.
+
+NOTE: When setting the template variable, DO NOT include the file extension.
+The makefile appends extensions for various purposes throughout its execution.
 
 ### Using MakeDoc
 
@@ -44,7 +60,7 @@ project directory. Create a LaTeX file for your formatting (will include some
 basic formats eventually). By default, this file is called "main.tex" (this
 can be changed with the "TeXtemplate" varable near the top of the makefile).
 
-Then create .txt files for each section (or chapter) of your document. Be sure
+Then create .md files for each section (or chapter) of your document. Be sure
 these are included in the template file with \include or \input commands. I do
 plan to streamline this process eventually.
 
@@ -56,7 +72,15 @@ complex right now, but this is done to support different macro sets in the
 future.
 
 When you are ready to compile your document, just open a terminal, navigate to
-your project directory and type "make".
+your project directory and type:
+
+~~~~
+source .makedoc
+make
+~~~~
+
+If you set template at the top of the makefile, or you've already sourced
+.makedoc in your current terminal, then you can skip that step.
 
 ### Contribution Guidelines
 I am always open to comments and suggestions, but I am unlikely to acknowledge
@@ -64,4 +88,4 @@ pull requests for this repository, unless it is a very significant change.
 
 ### Contact Information
 This repo is a project of Robert Hawk, who may be contacted for questions or
-comment at robert@the-hawk.us
+comments at robert.hawk@the-hawk.us

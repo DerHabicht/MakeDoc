@@ -41,13 +41,16 @@ makefile in, I will create a .makedoc file that looks something like:
 
 ~~~~
 export template=foo
+export tldiv=chapter
 ~~~~
 
 I will then source .makedoc before invoking make in that directory.
 
 This isn't always the best approach and can be problematic in some cases. You
 can always set the template variable At the top of the makefile if you have
-trouble getting the template file name from the environment.
+trouble getting the template file name from the environment. This also applies
+to the argument to Pandoc's --top-level-division flag which is invoked by this
+makefile.
 
 NOTE: When setting the template variable, DO NOT include the file extension.
 The makefile appends extensions for various purposes throughout its execution.

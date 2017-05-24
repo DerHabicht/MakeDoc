@@ -2,6 +2,7 @@
 # template file name. NOTE: DO NOT include the .tex extension of the filename,
 # just the base name for your template file.
 #template=[LaTeX TEMPLATE FILE]
+#tldiv=default
 
 # Collect all files with macros
 macro_text = $(basename $(wildcard *.m4md))
@@ -24,7 +25,7 @@ latex: $(template).tex \
 
 # Generic chapter file rule: parse each *.md file into LaTeX format
 %.tex: %.md
-	pandoc $< -f markdown -t latex -o $@
+	pandoc --top-level-division=$(tldiv) $< -f markdown -t latex -o $@
 
 # Cleanup rules
 .PHONY: clean

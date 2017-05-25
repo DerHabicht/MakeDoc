@@ -25,7 +25,7 @@ latex: $(template).tex \
 
 # Generic chapter file rule: parse each *.md file into LaTeX format
 %.tex: %.md
-	pandoc --top-level-division=$(tldiv) $< -f markdown -t latex -o $@
+	pandoc --chapters $< -f markdown -t latex -o $@
 
 # Cleanup rules
 .PHONY: clean

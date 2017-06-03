@@ -19,6 +19,10 @@ latex: $(template).tex \
 	pdflatex $(template).tex
 	pdflatex $(template).tex
 
+# Convert to MS Word documents for upload to Google Drive
+doc: $(foreach ch, $(pandoc_text), $(ch).md)
+	$(foreach ch, $(pandoc_text), pandoc -i $(ch).md -o $(ch).docx;)
+
 # Process any files with macros
 %.md: %.m4md
 	m4 $< > $@
@@ -38,3 +42,4 @@ clean:
 	rm -f $(foreach f, $(macro_text), $(f).tex)
 	rm -f $(foreach f, $(pandoc_text), $(f).tex)
 	rm -f *.toc
+	rm -f *.docx

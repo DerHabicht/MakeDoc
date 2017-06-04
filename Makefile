@@ -5,26 +5,36 @@
 #tldiv=default
 
 # Collect all files with macros
-macro_text = $(basename $(wildcard *.m4md))
+macro_text = $(basename $(wildcard *.m4))
 # Collect all files to be processed directly by pandoc
 pandoc_text = $(basename $(wildcard *.md))
 
 # Uncomment this to preserve intermediate files for debugging
 #.SECONDARY:
 
+pdf: $(template).tex
+	ln -s .texmacros macros
+	make tex_compile
+	rm macros
+
+doc:
+	ln -s .docmacros macros
+	make doc_compile
+	rm macros
+
 # Run two passes for any annotation in the document
-latex: $(template).tex \
-					$(foreach ch, $(macro_text), $(ch).tex) \
+tex_compile: $(template).tex \
+					$(foreach ch, $(macro_text), $(basename $(ch)).tex) \
 					$(foreach ch, $(pandoc_text), $(ch).tex)
 	pdflatex $(template).tex
 	pdflatex $(template).tex
 
 # Convert to MS Word documents for upload to Google Drive
-doc: $(foreach ch, $(pandoc_text), $(ch).md)
+doc_compile: $(foreach ch, $(pandoc_text), $(ch).md)
 	$(foreach ch, $(pandoc_text), pandoc -i $(ch).md -o $(ch).docx;)
 
 # Process any files with macros
-%.md: %.m4md
+%.md: %.md.m4
 	m4 $< > $@
 
 # Generic chapter file rule: parse each *.md file into LaTeX format
@@ -38,8 +48,9 @@ clean:
 	rm -f *.log
 	rm -f *.out
 	rm -f *.pdf
-	rm -f $(foreach f, $(macro_text), $(f).md)
-	rm -f $(foreach f, $(macro_text), $(f).tex)
+	rm -f $(foreach f, $(basename $(macro_text)), $(f).md)
+	rm -f $(foreach f, $(basename $(macro_text)), $(f).tex)
 	rm -f $(foreach f, $(pandoc_text), $(f).tex)
 	rm -f *.toc
 	rm -f *.docx
+	rm -f macros

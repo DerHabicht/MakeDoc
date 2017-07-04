@@ -13,6 +13,7 @@ pandoc_text = $(basename $(wildcard *.md))
 #.SECONDARY:
 
 pdf: $(template).tex
+	$(foreach ch, $(macro_text), echo ch)
 	ln -s .texmacros macros
 	make tex_compile
 	rm macros
@@ -30,7 +31,9 @@ tex_compile: $(template).tex \
 	pdflatex $(template).tex
 
 # Convert to MS Word documents for upload to Google Drive
-doc_compile: $(foreach ch, $(pandoc_text), $(ch).md)
+doc_compile: $(foreach ch, $(macro_text), $(basename $(ch)).md) \
+		$(foreach ch, $(pandoc_text), $(ch).md)
+	$(foreach ch, $(macro_text), pandoc -i $(basename $(ch)).md -o $(basename $(ch)).docx;)
 	$(foreach ch, $(pandoc_text), pandoc -i $(ch).md -o $(ch).docx;)
 
 # Process any files with macros

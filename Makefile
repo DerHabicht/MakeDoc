@@ -72,3 +72,5 @@ clean:
 	rm -f *.docx
 	rm -f *.toc
 	rm -f macros
+	rm -f *.hst
+	rm -f *.ver

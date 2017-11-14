@@ -55,7 +55,7 @@ doc_compile: $(foreach ch, $(macro_text), $(basename $(ch)).md) \
 
 # Generic chapter file rule: parse each *.md file into LaTeX format
 %.tex: %.md
-	pandoc --chapters $< -f markdown -t latex -o $@
+	pandoc --top-level-divisions=$(tldiv) $< -f markdown -t latex -o $@
 
 # Cleanup rules
 .PHONY: clean

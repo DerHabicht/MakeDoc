@@ -23,7 +23,7 @@ First you need to have these programs installed:
  1.	GNU Make
  2. Pandoc
  3. GNU M4 (For macro support)
- 4. pdflatex (I recommend the TeXLive installation)
+ 4. lualatex (I recommend the TeXLive installation)
 
 There are three options for setting up this makefile.
 

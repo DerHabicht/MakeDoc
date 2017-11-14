@@ -13,9 +13,13 @@ pandoc_text = $(basename $(wildcard *.md))
 #.SECONDARY:
 
 pdf: $(template).tex
-	$(foreach ch, $(macro_text), echo ch)
 	ln -s .texmacros macros
 	make tex_compile
+	rm macros
+
+web:
+	ln -s .htmlmacros macros
+	make html_compile
 	rm macros
 
 doc:
@@ -30,8 +34,14 @@ wc:
 tex_compile: $(template).tex \
 					$(foreach ch, $(macro_text), $(basename $(ch)).tex) \
 					$(foreach ch, $(pandoc_text), $(ch).tex)
-	pdflatex $(template).tex
-	pdflatex $(template).tex
+	lualatex $(template).tex
+	lualatex $(template).tex
+
+# Convert to html snippet documents
+html_compile: $(foreach ch, $(macro_text), $(basename $(ch)).md) \
+		$(foreach ch, $(pandoc_text), $(ch).md)
+	$(foreach ch, $(macro_text), pandoc -i $(basename $(ch)).md -o $(basename $(ch)).html;)
+	$(foreach ch, $(pandoc_text), pandoc -i $(ch).md -o $(ch).html;)
 
 # Convert to MS Word documents for upload to Google Drive
 doc_compile: $(foreach ch, $(macro_text), $(basename $(ch)).md) \
@@ -57,6 +67,8 @@ clean:
 	rm -f $(foreach f, $(basename $(macro_text)), $(f).md)
 	rm -f $(foreach f, $(basename $(macro_text)), $(f).tex)
 	rm -f $(foreach f, $(pandoc_text), $(f).tex)
+	rm -f $(foreach f, $(basename $(macro_text)), $(f).html)
+	rm -f $(foreach f, $(pandoc_text), $(f).html)
 	rm -f *.docx
 	rm -f *.toc
 	rm -f macros

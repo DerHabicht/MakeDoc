@@ -23,6 +23,9 @@ doc:
 	make doc_compile
 	rm macros
 
+wc:
+	@$(mddir)mdwc.py
+
 # Run two passes for any annotation in the document
 tex_compile: $(template).tex \
 					$(foreach ch, $(macro_text), $(basename $(ch)).tex) \
@@ -54,6 +57,6 @@ clean:
 	rm -f $(foreach f, $(basename $(macro_text)), $(f).md)
 	rm -f $(foreach f, $(basename $(macro_text)), $(f).tex)
 	rm -f $(foreach f, $(pandoc_text), $(f).tex)
-	rm -f *.toc
 	rm -f *.docx
+	rm -f *.toc
 	rm -f macros

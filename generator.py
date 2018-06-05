@@ -47,6 +47,11 @@ def idd_add_part(part):
         text = text.replace('%%%SHORT_NAME%%%', part)
         specfile.write(text)
 
+    with open(f'{part}/testing.tex', 'w') as specfile:
+        text = templates.IDD_PROCESSES
+        text = text.replace('%%%SHORT_NAME%%%', part)
+        specfile.write(text)
+
 
 def initial_design_doc(dir):
     print('Project Name:', end=' ')

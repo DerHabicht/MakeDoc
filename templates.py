@@ -94,6 +94,7 @@ IDD_MAIN_PARTS = r'''
 \include{%%%SHORT_NAME%%%/spec}
 \include{%%%SHORT_NAME%%%/schema}
 \include{%%%SHORT_NAME%%%/processes}
+\include{%%%SHORT_NAME%%%/testing}
 
 '''  # nopep8
 
@@ -146,4 +147,8 @@ IDD_SCHEMA = r'''
 
 IDD_PROCESSES = r'''
 \chapter{Tricky Processes and Algorithms}\label{chap:%%%SHORT_NAME%%%/processes}
+'''  # nopep8
+
+IDD_TEST_CASES = r'''
+\chapter{Test Cases}\label{chap:%%%SHORT_NAME%%%/testing}
 '''  # nopep8

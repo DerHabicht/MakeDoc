@@ -27,6 +27,28 @@ clean:
 	rm -f *.toc
 	rm -f *.lof
 	rm -f *.lot
+	rm -f */*.pdf
+	rm -f */*.aux
+	rm -f */*.log
+	rm -f */*.docx
+	rm -f */*.pdf
+	rm -f */*.hst
+	rm -f */*.ver
+	rm -f */*.bbl
+	rm -f */*.bcf
+	rm -f */*.blg
+	rm -f */*.glg
+	rm -f */*.glo
+	rm -f */*.gls
+	rm -f */*.idx
+	rm -f */*.ilg
+	rm -f */*.ind
+	rm -f */*.ist
+	rm -f */*.out
+	rm -f */*.xml
+	rm -f */*.toc
+	rm -f */*.lof
+	rm -f */*.lot
 '''  # nopep8
 
 IDD_MAIN = r'''

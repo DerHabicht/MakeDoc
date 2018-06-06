@@ -89,3 +89,6 @@ def initial_design_doc(dir):
 
     with open(f'{dir}/components.tex', 'w') as components:
         components.write(templates.IDD_COMPONENTS)
+
+    with open(f'{dir}/.gitignore', 'w') as gitignore:
+        gitignore.write(templates.TEX_GITIGNORE)

@@ -56,7 +56,9 @@ IDD_MAIN = r'''
 
 \usepackage[hidelinks,pdfusetitle]{hyperref}
 \usepackage{bookmark}
+\usepackage{booktabs}
 \usepackage{fancyhdr}
+\usepackage{float}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{listings}

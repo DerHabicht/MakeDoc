@@ -14,6 +14,7 @@ Options:
                                   The generator can make the following types:
                                     - generic (default)
                                     - idd
+    --taskwarrior                 Have the generator create initial TW tasks.
     --version                     Show version.
 """
 

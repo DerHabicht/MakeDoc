@@ -1,3 +1,4 @@
+from base64 import b64decode
 from datetime import date
 from os import getcwd, makedirs
 from os.path import basename
@@ -92,3 +93,7 @@ def initial_design_doc(dir):
 
     with open(f'{dir}/.gitignore', 'w') as gitignore:
         gitignore.write(templates.TEX_GITIGNORE)
+
+    makedirs(f'{dir}/img')
+    with open(f'{dir}/img/barnardStar.png', 'wb') as bstar:
+        bstar.write(b64decode(templates.BARNARDS_STAR))

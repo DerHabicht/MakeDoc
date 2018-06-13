@@ -27,6 +27,7 @@ clean:
 	rm -f *.toc
 	rm -f *.lof
 	rm -f *.lot
+    rm -f *.tdo
 	rm -f */*.pdf
 	rm -f */*.aux
 	rm -f */*.log

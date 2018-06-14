@@ -1,4 +1,5 @@
 from enum import Enum
+from hashlib import md5
 from os import walk
 from os.path import join
 from re import finditer
@@ -26,8 +27,14 @@ def _read_todos_from_tex_file(filename, doctype=DocumentType.IDD):
 
 
 def _create_task(project, description):
+    twi_hash = md5(description.upper().encode('utf-8')).hexdigest()
+    task_id, _ = TW.get_task(twi_hash=twi_hash)
+
+    if task_id:
+        print(f'Task "{description}" has already been added. Skipping.')
+
     try:
-        TW.task_add(description, project=project)
+        TW.task_add(description, project=project, twi_hash=twi_hash)
     except TaskwarriorError:
         print(f'Failed to add "{description}" for project "{project}"')
 

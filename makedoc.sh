@@ -9,6 +9,6 @@ while [ -h "$SOURCE" ]; do
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
-source activate makedoc
+conda activate makedoc
 python $DIR/main.py "$@"
-source deactivate
+conda deactivate
